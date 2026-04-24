@@ -4,11 +4,11 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/coding-toolbox-popup-book/',
+  base: '/',
   build: {
     outDir: 'dist',
     rollupOptions: {
-      input: './src/main.jsx',
+      input: './index.html',
     },
   },
 })
