@@ -3543,38 +3543,34 @@ export default function CodingToolboxPopupBook() {
               {openItem && (
                 <motion.div key={openItem.id} initial={{ opacity: 0, rotateX: -8, y: 16 }} animate={{ opacity: 1, rotateX: 0, y: 0 }} exit={{ opacity: 0, rotateX: 6, y: -8 }} transition={{ duration: 0.25 }} style={{ perspective: 1200 }} className="min-w-0">
                   <Card className="rounded-4xl border-slate-200 bg-white/95 shadow-2xl">
-                    <CardContent className="p-5 md:p-7">
-                      <div className="space-y-4 min-w-0">
+                    <CardContent className="p-4 md:p-6">
+                      <div className="space-y-3 min-w-0">
                         <div className="rounded-4xl border border-slate-200 bg-linear-to-br from-white via-slate-50 to-slate-100 p-4 md:p-5 lg:p-6">
-                          <div className="grid gap-4 xl:grid-cols-[minmax(0,1.25fr)_minmax(300px,0.8fr)] xl:items-start">
-                            <div className="space-y-4">
-                              <div className={`inline-flex items-center gap-3 rounded-3xl border px-4 py-3 ${openItem.color}`}>
-                                <openItem.icon className="h-6 w-6" />
-                                <div>
-                                  <div className="text-sm uppercase tracking-wide opacity-75">{openItem.type}</div>
-                                  <div className="text-2xl font-black md:text-3xl">{openItem.name}</div>
+                          <div className="space-y-3">
+                            <div className={`inline-flex items-center gap-3 rounded-3xl border px-4 py-3 ${openItem.color}`}>
+                              <openItem.icon className="h-6 w-6" />
+                              <div>
+                                <div className="text-sm uppercase tracking-wide opacity-75">{openItem.type}</div>
+                                <div className="text-2xl font-black md:text-3xl">{openItem.name}</div>
+                              </div>
+                            </div>
+
+                            <InvariantBox item={openItem} />
+
+                            <div className="grid gap-3 lg:grid-cols-2">
+                              <Box className="rounded-3xl border-slate-200 bg-white/75 p-4">
+                                <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Mental model</div>
+                                <p className="mt-2 text-base font-semibold leading-6 text-slate-800 md:text-lg">{openItem.mentalModel}</p>
+                              </Box>
+                              <Box className="rounded-3xl border-slate-200 bg-white/75 p-4">
+                                <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Use it when</div>
+                                <div className="mt-3">
+                                  <SmallBadgeList items={openItem.useWhen} />
                                 </div>
-                              </div>
-
-                              <InvariantBox item={openItem} />
-
-                              <div className="grid gap-4 lg:grid-cols-2">
-                                <Box className="rounded-3xl border-slate-200 bg-white/75">
-                                  <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Mental model</div>
-                                  <p className="mt-2 text-base font-semibold leading-6 text-slate-800 md:text-lg">{openItem.mentalModel}</p>
-                                </Box>
-                                <Box className="rounded-3xl border-slate-200 bg-white/75">
-                                  <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Use it when</div>
-                                  <div className="mt-3">
-                                    <SmallBadgeList items={openItem.useWhen} />
-                                  </div>
-                                </Box>
-                              </div>
+                              </Box>
                             </div>
 
-                            <div className="w-full">
-                              <IntentBox item={openItem} />
-                            </div>
+                            <IntentBox item={openItem} />
                           </div>
                         </div>
 
