@@ -2249,9 +2249,9 @@ export default function CodingToolboxPopupBook() {
           </Card>
 
           <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)] 2xl:grid-cols-[400px_minmax(0,1fr)] items-start">
-            <Card className="rounded-[2rem] border-slate-200 bg-white/90 shadow-lg xl:sticky xl:top-4 max-h-[calc(100vh-2rem)] overflow-hidden">
-              <CardHeader className="pb-3"><CardTitle className="text-2xl">Choose a page</CardTitle></CardHeader>
-              <CardContent className="space-y-4 h-full overflow-hidden flex flex-col">
+            <Card className="rounded-[2rem] border-slate-200 bg-white/90 shadow-lg xl:sticky xl:top-4 xl:h-[calc(100vh-2rem)] xl:max-h-[calc(100vh-2rem)] overflow-hidden flex flex-col">
+              <CardHeader className="shrink-0 pb-3"><CardTitle className="text-2xl">Choose a page</CardTitle></CardHeader>
+              <CardContent className="space-y-4 flex min-h-0 flex-1 flex-col overflow-hidden">
                 <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search tools, patterns, uses..." />
                 <div className="space-y-3">
                   <div className="flex flex-wrap gap-2">
@@ -2270,7 +2270,7 @@ export default function CodingToolboxPopupBook() {
                     <Button size="sm" variant={viewMode === "reference" ? "default" : "outline"} onClick={() => setViewMode("reference")}>Reference</Button>
                   </div>
                 </div>
-                <div className="min-h-0 flex-1 space-y-2 overflow-auto pr-1">
+                <div className="min-h-0 flex-1 space-y-2 overflow-y-auto overflow-x-hidden pr-1">
                   {visibleItems.map((item) => {
                     const Icon = item.icon;
                     return (
