@@ -6,9 +6,6 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: './',
   build: {
-    outDir: 'dist',
-    rollupOptions: {
-      input: './index.html',
-    },
+    outDir: 'docs',
   },
 })
