@@ -35,7 +35,6 @@ const structureData = [
     color: "bg-blue-50 border-blue-200 text-blue-700",
     mentalModel: "A straight shelf of labeled bins.",
     useWhen: ["Ordered items", "Index access", "Scans"],
-    python: `nums = [3, 7, 2]\nnums.append(9)\nvalue = nums[1]\n# [3, 7, 2, 9]`,
     demo: "array",
     realSystems: "Arrays back API response lists, log buffers, UI collections, metrics, and in-memory batches where order and index access matter.",
   },
@@ -47,7 +46,6 @@ const structureData = [
     color: "bg-cyan-50 border-cyan-200 text-cyan-700",
     mentalModel: "An array that grows when it runs out of room.",
     useWhen: ["Append-heavy workloads", "Indexed access", "Resizable sequences"],
-    python: `nums = []\nfor x in [1, 2, 3, 4]:\n    nums.append(x)\n# Python lists are dynamic arrays`,
     demo: "dynamic-array",
     realSystems: "Dynamic arrays power Python lists, JS arrays, UI collections, batched records, and most everyday sequence storage.",
   },
@@ -59,7 +57,6 @@ const structureData = [
     color: "bg-sky-50 border-sky-200 text-sky-700",
     mentalModel: "An array of characters with grammar problems.",
     useWhen: ["Parsing text", "Matching", "Scanning"],
-    python: `text = "hello"\nchars = list(text)\nfirst = text[0]`,
     demo: "string",
     realSystems: "Strings drive parsing and validation: request paths, search input, tokens, file names, commands, and lightweight protocols.",
   },
@@ -71,7 +68,6 @@ const structureData = [
     color: "bg-emerald-50 border-emerald-200 text-emerald-700",
     mentalModel: "A magic filing cabinet: key to value.",
     useWhen: ["Fast lookup", "Counting", "Grouping"],
-    python: `counts = {}\nfor ch in "banana":\n    counts[ch] = counts.get(ch, 0) + 1`,
     demo: "hashmap",
     realSystems: "Hash maps power caches, config lookups, session state, ID indexes, counters, and joins between related data.",
   },
@@ -83,7 +79,6 @@ const structureData = [
     color: "bg-violet-50 border-violet-200 text-violet-700",
     mentalModel: "A guest list. You are either in or out.",
     useWhen: ["Uniqueness", "Membership", "Visited tracking"],
-    python: `seen = set()\nseen.add("a")\nseen.add("a")`,
     demo: "set",
     realSystems: "Sets shine in deduplication, permission checks, feature flags, and visited tracking.",
   },
@@ -95,7 +90,6 @@ const structureData = [
     color: "bg-orange-50 border-orange-200 text-orange-700",
     mentalModel: "A stack of plates: last in, first out.",
     useWhen: ["Undo", "Nesting", "Recent-first"],
-    python: `stack = []\nstack.append("A")\nstack.append("B")\nitem = stack.pop()`,
     demo: "stack",
     realSystems: "Stacks show up in undo history, parser state, nested UI flows, and depth-first traversal.",
   },
@@ -105,7 +99,12 @@ const structureData = [
     name: "Queue",
     icon: Workflow,
     color: "bg-teal-50 border-teal-200 text-teal-700",
-    python: `from collections import deque\nq = deque(["A"])\nq.append("B")\nitem = q.popleft()`,
+    mentalModel: "A line where the first to arrive is the first to leave.",
+    useWhen: ["Arrival-order work", "Buffering", "BFS"],
+    python: `from collections import deque
+q = deque(["A"])
+q.append("B")
+item = q.popleft()`,
     demo: "queue",
     realSystems: "Queues power job runners, buffering, message processing, and background work.",
   },
@@ -115,19 +114,27 @@ const structureData = [
     name: "Deque",
     icon: Split,
     color: "bg-amber-50 border-amber-200 text-amber-700",
+    mentalModel: "A flexible sequence where both ends stay cheap.",
     useWhen: ["Sliding windows", "Flexible buffering", "Double-ended work"],
-    python: `from collections import deque\nd = deque([2, 3])\nd.appendleft(1)\nd.append(4)`,
+    python: `from collections import deque
+d = deque([2, 3])
+d.appendleft(1)
+d.append(4)`,
     demo: "deque",
     realSystems: "Deques help with stream buffers, rolling windows, and both-end push/pop workloads.",
   },
   {
     id: "linkedlist",
     type: "structure",
+    name: "Linked List",
     icon: Waypoints,
     color: "bg-indigo-50 border-indigo-200 text-indigo-700",
     mentalModel: "A chain where each node points to the next clue.",
     useWhen: ["Pointer operations", "Cheap inserts", "Node manipulation"],
-    python: `class Node:\n    def __init__(self, val, next=None):\n        self.val = val\n        self.next = next`,
+    python: `class Node:
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next`,
     demo: "linkedlist",
     realSystems: "Linked lists still show up inside LRU caches, allocator internals, and low-level structures.",
   },
@@ -138,7 +145,9 @@ const structureData = [
     icon: Boxes,
     color: "bg-lime-50 border-lime-200 text-lime-700",
     mentalModel: "A chessboard of cells addressed by row and column.",
-    python: `grid = [[1,2,3],[4,5,6],[7,8,9]]\nvalue = grid[1][2]`,
+    useWhen: ["2D grids", "Row/column navigation", "Neighbor traversal"],
+    python: `grid = [[1,2,3],[4,5,6],[7,8,9]]
+value = grid[1][2]`,
     demo: "grid-matrix",
     realSystems: "Grids show up in game boards, images, heat maps, spreadsheets, and 2D pathfinding.",
   },
@@ -180,9 +189,14 @@ const structureData = [
     type: "structure",
     name: "Trie",
     icon: GitBranch,
+    color: "bg-sky-50 border-sky-200 text-sky-700",
     mentalModel: "A word tree that reuses shared beginnings.",
     useWhen: ["Autocomplete", "Prefix search", "Dictionary matching"],
-    python: `trie = {}\nfor word in ["cat", "car"]:\n    node = trie\n    for ch in word:\n        node = node.setdefault(ch, {})`,
+    python: `trie = {}
+for word in ["cat", "car"]:
+    node = trie
+    for ch in word:
+        node = node.setdefault(ch, {})`,
     demo: "trie",
     realSystems: "Tries are useful for autocomplete, prefix search, command suggestion, and router matching.",
   },
@@ -194,7 +208,11 @@ const structureData = [
     color: "bg-yellow-50 border-yellow-200 text-yellow-700",
     mentalModel: "Friend groups that keep merging.",
     useWhen: ["Connected components", "Clustering", "Connectivity"],
-    python: `parent = {x: x for x in [1,2,3,4]}\ndef find(x):\n    if parent[x] != x:\n        parent[x] = find(parent[x])\n    return parent[x]`,
+    python: `parent = {x: x for x in [1,2,3,4]}
+def find(x):
+    if parent[x] != x:
+        parent[x] = find(parent[x])
+    return parent[x]`,
     demo: "unionfind",
     realSystems: "Union-find keeps a quick representative for each group instead of traversing the graph every time.",
   },
@@ -253,7 +271,7 @@ visited = set()`,
     mentalModel: "What must stay true while the code runs?",
     useWhen: ["Algorithm correctness", "Loop reasoning", "Debugging"],
     python: `while left < right:
-    # invariant: answer is still inside [left, right]
+    # Keep the answer fenced inside [left, right].
     ...`,
     demo: "foundation-invariant",
     realSystems: "Invariants are the backbone of trustworthy code. They let you reason about correctness instead of hoping the loop works out.",
@@ -324,7 +342,7 @@ for x in nums:
     mentalModel: "How does the work grow as the input grows?",
     useWhen: ["Choosing tools", "Avoiding brute force", "Performance reasoning"],
     python: `# O(1), O(log n), O(n), O(n log n), O(n^2)
-# choose the tool that makes the critical operation cheap`,
+  # Pick the tool that keeps the critical operation cheap.`,
     demo: "foundation-cost",
     realSystems: "Cost thinking helps you choose the structure or pattern that makes the important operation cheap enough for the job.",
   },
@@ -486,7 +504,7 @@ const extraPythonExamples = {
 while fast and fast.next:
     slow = slow.next
     fast = fast.next.next
-# slow lands near the middle` },
+  # Slow advances until the midpoint reveals itself.` },
     { label: "Cycle detect", code: `slow = fast = head
 while fast and fast.next:
     slow = slow.next
@@ -839,6 +857,7 @@ const bigOData = {
       average: ["Runtime: states × transitions", "1D DP often O(n)", "2D DP often O(rows * cols)"],
       worst: ["Large state spaces can still be expensive"],
       space: ["Table size often dominates", "Can sometimes compress space"],
+    useWhen: ["2D grids", "Row/column navigation", "Neighbor traversal"],
     },
   },
   "topological-sort": {
@@ -880,6 +899,15 @@ const bigOData = {
 };
 
 const invariantData = {
+  "foundation-position": "The current index or bounds always describe the exact slice being inspected.",
+  "foundation-reference": "The reference you follow must always point to a valid next related item, or the end.",
+  "foundation-state": "Any state you keep must be the minimum needed to make the next decision.",
+  "foundation-invariant": "The one rule that matters stays true after every step.",
+  "foundation-traversal": "Each visit follows the chosen order without skipping or revisiting work unexpectedly.",
+  "foundation-frontier": "The frontier contains exactly the work items ready to process next.",
+  "foundation-accumulation": "The running summary must equal everything processed so far.",
+  "foundation-constraint": "Every move must keep the partial solution legal.",
+  "foundation-cost": "The cost model must match the operation you care about, not a different one.",
   "fast-slow-pointers": "Fast advances twice as quickly as slow, so their relative motion reveals midpoint or cycle structure.",
   array: "Index positions stay stable until you insert or delete before them.",
   "dynamic-array": "Values stay in contiguous slots even if the backing storage occasionally grows.",
@@ -1000,6 +1028,15 @@ const beforeAfterData = {
 };
 
 const guidedStepsData = {
+  "foundation-position": ["Start by naming the current slot or coordinate.", "Move one index or one cell and notice how focus changes.", "Use bounds to keep track of where you are.", "The position itself becomes part of the answer.", "Treat index and coordinate as first-class state."],
+  "foundation-reference": ["Start with one object that points to another.", "Follow the link rather than scanning by position.", "Notice how the next thing is reached through a relationship.", "Move only along valid pointers or neighbors.", "Reference thinking is about connections, not coordinates."],
+  "foundation-state": ["Choose the smallest useful memory to keep.", "Update that state after each step.", "Reuse the remembered value instead of recomputing.", "Track visited, totals, or best-so-far values.", "Good state makes the next move cheaper."],
+  "foundation-invariant": ["State the rule that must always stay true.", "Check it before and after each move.", "Use the rule to guide edits and debugging.", "If the invariant breaks, the algorithm loses its footing.", "Correctness comes from preserving the promise."],
+  "foundation-traversal": ["Decide the order of visiting first.", "Walk the data in that order without restarting.", "Compare scans, DFS, BFS, and recursive walks.", "Traversal is about path choice, not values.", "The right order can turn hard work into routine work."],
+  "foundation-frontier": ["List the work items that are ready now.", "Remove one item from the frontier.", "Add any newly unlocked items back into it.", "Compare queues, stacks, and heaps as frontier managers.", "Frontier management decides what happens next."],
+  "foundation-accumulation": ["Start with an empty summary.", "Add each new item into the summary.", "Use the partial result instead of starting over.", "Watch counts, totals, or prefix values grow.", "Accumulation trades a little memory for a lot of reuse."],
+  "foundation-constraint": ["Name the rule that cannot break.", "Shrink or grow the candidate space while obeying it.", "Reject any move that makes the state illegal.", "Use the rule to prune bad branches early.", "Constraints keep the search honest."],
+  "foundation-cost": ["Ask which operation must be cheap.", "Compare the growth shape of each option.", "Choose the structure whose expensive step is acceptable.", "Remember Big O is about scaling, not stopwatch noise.", "The right cost model changes the whole design."],
   "fast-slow-pointers": ["Put both pointers at the start.", "Move slow one step at a time.", "Move fast two steps at a time.", "If fast laps slow, there is a cycle.", "If fast hits the end, slow is near the midpoint."],
   array: ["Start with a line of boxes.", "Each box has an index.", "Read or update by index instantly.", "Notice inserts near the front shift later boxes.", "Use arrays when ordered scanning and indexing are the real job."],
   hashmap: ["Pick a key you care about.", "Jump straight to its value.", "Notice there is no left-to-right scan.", "Change or count values by key.", "Reach for this when lookup is the bottleneck."],
@@ -1012,6 +1049,20 @@ const guidedStepsData = {
   dp: ["Define what one state means.", "Ask what smaller states it depends on.", "Compute each state once.", "Reuse stored answers instead of recomputing.", "The magic is in the state definition, not the syntax."],
   "topological-sort": ["Count how many prerequisites each node still has.", "Start with the nodes that need nothing.", "Take one and mark it done.", "Reduce the indegree of dependents.", "When a dependent reaches zero, it becomes eligible."],
   monotonic: ["Read the next value.", "Ask whether weaker candidates can still matter.", "Pop the ones that cannot.", "Push the current value.", "The structure stays monotonic the whole time."],
+  "dynamic-array": ["Notice appends are usually cheap.", "Watch the array grow when capacity fills.", "Compare a normal append with a resize spike.", "Use dynamic arrays when you need indexed access plus growth.", "The key idea is amortized cost."],
+  string: ["Treat text as ordered characters.", "Scan or slice by position.", "Notice how counting and matching read the same data.", "Use strings when the work is about text, not generic objects.", "Think in characters and substrings."],
+  set: ["Add repeated values and watch duplicates disappear.", "Check membership directly instead of scanning.", "Use a set when uniqueness matters more than order.", "Visited tracking and deduplication are the same move.", "Sets are for 'already seen?' questions."],
+  queue: ["Enqueue new work at the back.", "Dequeue the oldest item from the front.", "Notice FIFO keeps arrival order intact.", "Use queues for buffering and level order work.", "Frontier work stays simple when order matters."],
+  deque: ["Add and remove from either end.", "Compare left-end and right-end operations.", "Use a deque when both ends stay active.", "Keep the middle out of the story.", "Deques are flexible frontier managers."],
+  linkedlist: ["Start at the head node.", "Follow the next pointer to the next node.", "Rewire links instead of shifting blocks.", "Use linked lists when local pointer edits matter.", "Think in nodes, not indexes."],
+  "grid-matrix": ["Pick a row and column.", "Move to a neighbor by changing coordinates.", "Scan the board row by row.", "Use matrices when the world is naturally 2D.", "Position and direction drive the whole shape."],
+  tree: ["Start at the root.", "Visit children under each parent.", "Compare depth-first and breadth-first walks.", "Use trees when hierarchy matters.", "Parent-child shape is the whole clue."],
+  trie: ["Insert words one character at a time.", "Reuse shared prefix paths.", "Check whether a prefix exists.", "Use tries for autocomplete-style searches.", "The path is the answer."],
+  unionfind: ["Begin with each item in its own group.", "Merge two groups with union.", "Ask find to reveal the representative.", "Watch connectivity become easier to query.", "Union-find is for merging and membership of groups."],
+  "two-pointers": ["Place one pointer at each end or boundary.", "Move the pointers inward or forward.", "Compare pairs without restarting work.", "Use this when a sequence can be reduced in one pass.", "Pointer motion replaces nested loops."],
+  "sliding-window": ["Choose a contiguous range.", "Grow or shrink the window while keeping it valid.", "Update the running summary instead of rescanning.", "Use it for substrings and subarrays.", "The window should move, not restart."],
+  greedy: ["Sort or rank the choices if needed.", "Take the next safe local win.", "Skip anything that would break the plan.", "Watch the chosen set grow one decision at a time.", "Greedy works when local choice is provably good."],
+  "prefix-sum": ["Build the cumulative totals once.", "Use subtraction to answer a range query.", "Notice how repeated queries get cheaper.", "Use it when the array stays stable.", "Prefix sums prepay the work."],
 };
 
 const foundationLinks = {
@@ -1095,9 +1146,69 @@ const usageRank = {
   unionfind: 26,
 };
 
+const typeMeta = {
+  foundation: {
+    short: "F",
+    label: "Foundations",
+    icon: Layers,
+    badge: "border-amber-200 bg-amber-50 text-amber-800",
+    pill: "border-amber-200 bg-amber-100 text-amber-800",
+  },
+  structure: {
+    short: "S",
+    label: "Structures",
+    icon: Boxes,
+    badge: "border-sky-200 bg-sky-50 text-sky-800",
+    pill: "border-sky-200 bg-sky-100 text-sky-800",
+  },
+  pattern: {
+    short: "P",
+    label: "Patterns",
+    icon: Workflow,
+    badge: "border-violet-200 bg-violet-50 text-violet-800",
+    pill: "border-violet-200 bg-violet-100 text-violet-800",
+  },
+};
+
+const typeOrder = ["foundation", "structure", "pattern"];
+
+function slicePythonCode(code, maxLines = 8) {
+  const lines = String(code || "")
+    .split("\n")
+    .map((line) => line.replace(/\s+$/, ""));
+
+  const logicLines = lines.filter((line) => {
+    const trimmed = line.trim();
+    if (!trimmed) return false;
+    if (/^(class |def |from |import )/.test(trimmed)) return false;
+    return true;
+  });
+
+  if (logicLines.length <= maxLines) {
+    return logicLines.join("\n");
+  }
+
+  const signalLines = lines.filter((line) => {
+    const trimmed = line.trim();
+    if (!trimmed) return false;
+    if (/^(class |def |from |import )/.test(trimmed)) return false;
+    return /(for |while |if |elif |else:|return |break|continue|append\(|popleft\(|pop\(|push\(|union\(|find\(|merge\(|mid|left|right|window|stack|queue|heap|dfs|bfs|bt|dp|prefix)/.test(trimmed) || trimmed.startsWith("#");
+  });
+
+  const source = signalLines.length >= 5 ? signalLines : logicLines;
+  return source.slice(0, maxLines).join("\n");
+}
+
 const allItems = [...foundationData, ...structureData, ...patternData].map((item) => ({
   ...item,
-  pythonExamples: extraPythonExamples[item.id] || [{ label: "Sketch", code: item.python }],
+  pythonExamples: (extraPythonExamples[item.id] || [{ label: "Sketch", code: item.python }]).map((example) => {
+    const fullCode = example.fullCode || example.code;
+    return {
+      ...example,
+      fullCode,
+      logicCode: example.logicCode || slicePythonCode(fullCode),
+    };
+  }),
   bigO: bigOData[item.id],
   invariant: invariantData[item.id],
   useWhen: Array.isArray(item.useWhen) ? item.useWhen : [],
@@ -1161,6 +1272,7 @@ function RelatedLinkRail({ title, ids, onOpenItem, accent = "teal", emptyLabel }
       ) : (
         <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-3 py-2 text-sm text-slate-500">
           {emptyLabel}
+            color: "bg-sky-50 border-sky-200 text-sky-700",
         </div>
       )}
     </div>
@@ -1218,10 +1330,203 @@ function Box({ children, className = "" }) {
   return <div className={`rounded-2xl border border-slate-200 bg-white p-4 shadow-sm ${className}`}>{children}</div>;
 }
 
+function TwoColumnTable({ headers = ["What it is", "What it's for"], rows = [] }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+      <table className="min-w-full border-collapse text-sm">
+        <thead className="bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <tr>
+            <th className="px-3 py-2 text-left">{headers[0]}</th>
+            <th className="px-3 py-2 text-left">{headers[1]}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, index) => (
+            <tr key={`${row.left}-${row.right}`} className={index ? "border-t border-slate-200" : ""}>
+              <td className="px-3 py-3 align-top text-slate-700">{row.left}</td>
+              <td className="px-3 py-3 align-top text-slate-700">{row.right}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+const PYTHON_KEYWORDS = new Set([
+  "and",
+  "as",
+  "assert",
+  "async",
+  "await",
+  "break",
+  "class",
+  "continue",
+  "def",
+  "del",
+  "elif",
+  "else",
+  "except",
+  "False",
+  "finally",
+  "for",
+  "from",
+  "global",
+  "if",
+  "import",
+  "in",
+  "is",
+  "lambda",
+  "None",
+  "nonlocal",
+  "not",
+  "or",
+  "pass",
+  "raise",
+  "return",
+  "True",
+  "try",
+  "while",
+  "with",
+  "yield",
+]);
+
+const PYTHON_BUILTINS = new Set([
+  "append",
+  "bool",
+  "deque",
+  "dict",
+  "enumerate",
+  "filter",
+  "find",
+  "float",
+  "format",
+  "get",
+  "heapify",
+  "heappop",
+  "heappush",
+  "int",
+  "len",
+  "list",
+  "map",
+  "max",
+  "min",
+  "next",
+  "nsmallest",
+  "pop",
+  "popleft",
+  "print",
+  "range",
+  "reversed",
+  "set",
+  "setdefault",
+  "sorted",
+  "str",
+  "sum",
+  "tuple",
+  "zip",
+]);
+
+const PYTHON_TOKEN_CLASSES = {
+  keyword: "text-violet-300 font-semibold",
+  builtin: "text-cyan-300",
+  definition: "text-sky-300 font-semibold",
+  string: "text-emerald-300",
+  number: "text-amber-300",
+  comment: "text-slate-500 italic",
+  punct: "text-slate-400",
+  plain: "text-slate-200",
+};
+
+function tokenizePythonLine(line) {
+  const tokens = [];
+  let index = 0;
+  let expectDefinitionName = false;
+
+  while (index < line.length) {
+    const remaining = line.slice(index);
+    const current = line[index];
+
+    if (remaining.startsWith("#")) {
+      tokens.push({ type: "comment", value: remaining });
+      break;
+    }
+
+    if (/\s/.test(current)) {
+      const whitespaceMatch = remaining.match(/^\s+/);
+      const whitespace = whitespaceMatch?.[0] || current;
+      tokens.push({ type: "plain", value: whitespace });
+      index += whitespace.length;
+      continue;
+    }
+
+    const stringMatch = remaining.match(/^(?:'''[\s\S]*?'''|"""[\s\S]*?"""|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*")/);
+    if (stringMatch) {
+      tokens.push({ type: "string", value: stringMatch[0] });
+      index += stringMatch[0].length;
+      continue;
+    }
+
+    const numberMatch = remaining.match(/^\d+(?:\.\d+)?/);
+    if (numberMatch) {
+      tokens.push({ type: "number", value: numberMatch[0] });
+      index += numberMatch[0].length;
+      continue;
+    }
+
+    const wordMatch = remaining.match(/^[A-Za-z_][A-Za-z0-9_]*/);
+    if (wordMatch) {
+      const word = wordMatch[0];
+      let type = "plain";
+
+      if (expectDefinitionName) {
+        type = "definition";
+        expectDefinitionName = false;
+      } else if (PYTHON_KEYWORDS.has(word)) {
+        type = "keyword";
+        if (word === "def" || word === "class") {
+          expectDefinitionName = true;
+        }
+      } else if (PYTHON_BUILTINS.has(word)) {
+        type = "builtin";
+      }
+
+      tokens.push({ type, value: word });
+      index += word.length;
+      continue;
+    }
+
+    const punctuationMatch = remaining.match(/^[^\w\s]+/);
+    if (punctuationMatch) {
+      tokens.push({ type: "punct", value: punctuationMatch[0] });
+      index += punctuationMatch[0].length;
+      continue;
+    }
+
+    tokens.push({ type: "plain", value: current });
+    index += 1;
+  }
+
+  return tokens;
+}
+
+function renderPythonCode(code) {
+  return String(code || "")
+    .split("\n")
+    .map((line, lineIndex) => {
+      const tokens = tokenizePythonLine(line);
+      return (
+        <div key={lineIndex} className="whitespace-pre">
+          {tokens.length ? tokens.map((token, tokenIndex) => <span key={`${lineIndex}-${tokenIndex}`} className={PYTHON_TOKEN_CLASSES[token.type] || PYTHON_TOKEN_CLASSES.plain}>{token.value}</span>) : "\u00A0"}
+        </div>
+      );
+    });
+}
+
 function PythonBlock({ code }) {
   return (
-    <pre className="overflow-x-auto rounded-2xl bg-slate-950 p-4 text-xs leading-6 text-green-300 shadow-inner">
-      <code>{code}</code>
+    <pre className="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950 p-4 text-xs leading-6 shadow-inner">
+      <code className="block font-mono text-[12.5px] leading-6">{renderPythonCode(code)}</code>
     </pre>
   );
 }
@@ -1806,6 +2111,7 @@ function FlowVisualizer({ item, sketchIndex = 0, showTitle = true }) {
 }
 
 function SketchTabs({ item, activeBigO = "typical" }) {
+  const [showBoilerplate, setShowBoilerplate] = useState(false);
   const examples = item.pythonExamples?.length ? item.pythonExamples : [{ label: "Sketch", code: item.python }];
   const focusToIndex = {
     fast: 0,
@@ -1815,27 +2121,37 @@ function SketchTabs({ item, activeBigO = "typical" }) {
   };
   const activeIndex = focusToIndex[activeBigO] ?? 0;
   const activeExample = examples[activeIndex] || examples[0];
+  const activeCode = showBoilerplate ? activeExample.fullCode || activeExample.code : activeExample.logicCode || activeExample.code;
+
+  useEffect(() => {
+    setShowBoilerplate(false);
+  }, [item.id, activeBigO]);
 
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Python sketch</div>
-          <div className="text-base font-bold text-slate-900">Static code representation</div>
+          <div className="text-base font-bold text-slate-900">{showBoilerplate ? "Full frame" : "Active logic"}</div>
         </div>
-        <Badge className="rounded-full bg-slate-800">{activeExample.label}</Badge>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge>{activeExample.label}</Badge>
+          <Button size="sm" variant={showBoilerplate ? "default" : "outline"} onClick={() => setShowBoilerplate((value) => !value)}>
+            {showBoilerplate ? "Hide Boilerplate" : "Show Boilerplate"}
+          </Button>
+        </div>
       </div>
       <motion.div
-        key={`${item.id}-${activeBigO}-${activeIndex}`}
+        key={`${item.id}-${activeBigO}-${activeIndex}-${showBoilerplate ? "full" : "slice"}`}
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.2 }}
       >
-        <PythonBlock code={activeExample.code} />
+        <PythonBlock code={activeCode} />
       </motion.div>
       <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600">
-        Big O Feel selects which sketch variant is shown here.
+        Default view keeps the active loop or conditional. Use <span className="font-semibold">Show Boilerplate</span> when you need the full class or method frame.
       </div>
     </div>
   );
@@ -1843,10 +2159,10 @@ function SketchTabs({ item, activeBigO = "typical" }) {
 
 function BigOTabs({ item, activeBigO = "typical", setActiveBigO }) {
   const tabs = [
-    { key: "fast", label: "Fast", mapsTo: "best", helper: "When this tool feels quick." },
-    { key: "typical", label: "Typical", mapsTo: "average", helper: "What usually happens in normal use." },
-    { key: "expensive", label: "Expensive", mapsTo: "worst", helper: "Where this tool can get costly." },
-    { key: "memory", label: "Memory", mapsTo: "space", helper: "How much extra room it tends to use." },
+    { key: "fast", label: "Fast", mapsTo: "best", helper: "Instant / Teleport." },
+    { key: "typical", label: "Typical", mapsTo: "average", helper: "Walking the Pipe." },
+    { key: "expensive", label: "Expensive", mapsTo: "worst", helper: "Checking Every Brick." },
+    { key: "memory", label: "Memory", mapsTo: "space", helper: "How much room it needs." },
   ];
 
   useEffect(() => {
@@ -1858,7 +2174,7 @@ function BigOTabs({ item, activeBigO = "typical", setActiveBigO }) {
 
   return (
     <div className="space-y-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
-      <div className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500">Big O feel</div>
+      <div className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500">Cost feel</div>
       <p className="mb-3 text-sm font-medium text-slate-700">{item.bigO?.summary}</p>
       <div className="mb-3 flex flex-wrap gap-2">
         {tabs.map((tab) => (
@@ -1878,7 +2194,7 @@ function BigOTabs({ item, activeBigO = "typical", setActiveBigO }) {
         ))}
       </div>
       <div className="mt-3 rounded-2xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600">
-        Translation: Big O is about how work grows as the input gets bigger, not about exact stopwatch time.
+        Translation: Big O is about how the work grows as the input grows; the sidebar quick ref keeps the growth shapes in one place.
       </div>
     </div>
   );
@@ -1886,26 +2202,58 @@ function BigOTabs({ item, activeBigO = "typical", setActiveBigO }) {
 
 function BigOLegend() {
   const items = [
-    { label: "O(1)", meaning: "stays flat", note: "input grows, cost barely changes" },
-    { label: "O(log n)", meaning: "grows slowly", note: "you throw away lots of work each step" },
-    { label: "O(n)", meaning: "grows with input", note: "touch each item about once" },
-    { label: "O(n log n)", meaning: "usually sort + work", note: "common for sorting-based solutions" },
-    { label: "O(n²)", meaning: "grows fast", note: "nested loops over the same data" },
-    { label: "Exponential", meaning: "can blow up hard", note: "choices branch faster than input grows" },
+    { label: "O(1)", meaning: "Instant / Teleport", note: "flat cost no matter how big the pile gets" },
+    { label: "O(log n)", meaning: "The Great Divider", note: "cut the problem in half each step" },
+    { label: "O(n)", meaning: "Walking the Pipe", note: "touch each item once as you move through" },
+    { label: "O(n log n)", meaning: "Sort, then stride", note: "common when ordering happens first" },
+    { label: "O(n²)", meaning: "Checking Every Brick", note: "nested passes over the same work" },
+    { label: "Exponential", meaning: "Snowballing choices", note: "branches grow faster than the input" },
   ];
 
   return (
-    <Box className="rounded-3xl border-slate-200 bg-slate-50">
-      <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Big O legend</div>
-      <div className="grid gap-2 sm:grid-cols-2">
+    <div className="space-y-3">
+      <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Big O quick ref</div>
+      <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-1">
         {items.map((item) => (
-          <div key={item.label} className="rounded-2xl border border-slate-200 bg-white p-3">
+          <div key={item.label} className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
             <div className="font-mono text-sm font-bold text-slate-900">{item.label}</div>
-            <div className="mt-1 text-sm font-medium text-slate-700">{item.meaning}</div>
+            <div className="mt-1 text-sm font-semibold text-slate-700">{item.meaning}</div>
             <div className="mt-1 text-xs text-slate-500">{item.note}</div>
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function QuickRefDrawer() {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <Box className="rounded-3xl border-slate-200 bg-slate-50">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Quick ref</div>
+          <div className="text-sm font-bold text-slate-900">Big O stays within reach</div>
+        </div>
+        <Button size="sm" variant="outline" onClick={() => setOpen((value) => !value)}>
+          {open ? "Hide" : "Show"}
+        </Button>
+      </div>
+      <AnimatePresence initial={false} mode="wait">
+        {open && (
+          <motion.div
+            key="quick-ref"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.18 }}
+            className="mt-3"
+          >
+            <BigOLegend />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Box>
   );
 }
@@ -1978,11 +2326,13 @@ function PointerThinkingBox({ item }) {
   return (
     <Box className="rounded-3xl border-sky-200 bg-sky-50">
       <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-sky-700">Pointer thinking</div>
-      <div className="space-y-3 text-sm leading-6 text-slate-700">
-        <div><span className="font-semibold">What:</span> {content.what}</div>
-        <div><span className="font-semibold">When:</span> {content.when}</div>
-        <div><span className="font-semibold">Why:</span> {content.why}</div>
-      </div>
+      <TwoColumnTable
+        headers={["What it is", "What it's for"]}
+        rows={[
+          { left: content.what, right: content.when },
+          { left: "Why it helps", right: content.why },
+        ]}
+      />
     </Box>
   );
 }
@@ -1990,10 +2340,11 @@ function PointerThinkingBox({ item }) {
 function IntentBox({ item }) {
   return (
     <Box className="rounded-3xl border-blue-200 bg-blue-50">
-      <div className="text-sm font-semibold uppercase tracking-wide text-blue-700">Intent of the code</div>
-      <p className="mt-2 text-sm leading-6 text-slate-700">
-        The point of <span className="font-semibold">{item.name}</span> is to make the important operation cheap and obvious. When you use it well, the code should read like a statement of intent, not a pile of mechanics.
-      </p>
+      <div className="flex items-center justify-between gap-3">
+        <div className="text-sm font-semibold uppercase tracking-wide text-blue-700">Real systems</div>
+        <Badge variant="outline" className="border-blue-200 bg-white text-blue-700">why it matters</Badge>
+      </div>
+      <p className="mt-3 text-sm leading-6 text-slate-700">{item.realSystems}</p>
     </Box>
   );
 }
@@ -2005,7 +2356,7 @@ function DecisionRecipeBox({ item }) {
       <div className="space-y-2 text-sm text-slate-700">
         <div className="rounded-2xl border border-purple-200 bg-white px-3 py-2">1. What operation must be cheap?</div>
         <div className="rounded-2xl border border-purple-200 bg-white px-3 py-2">2. What shape does the data have?</div>
-        <div className="rounded-2xl border border-purple-200 bg-white px-3 py-2">3. Which invariant must stay true while the code runs?</div>
+        <div className="rounded-2xl border border-purple-200 bg-white px-3 py-2">3. Which one rule must stay true after every move?</div>
         <div className="rounded-2xl border border-purple-200 bg-white px-3 py-2">4. Does <span className="font-semibold">{item.name}</span> make that intent clearer than the obvious brute-force option?</div>
       </div>
     </Box>
@@ -2015,8 +2366,22 @@ function DecisionRecipeBox({ item }) {
 function InvariantBox({ item }) {
   return (
     <Box className="rounded-3xl border-amber-200 bg-amber-50">
-      <div className="text-sm font-semibold uppercase tracking-wide text-amber-700">Invariant</div>
-      <p className="mt-2 text-sm leading-6 text-slate-700">{item.invariant}</p>
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="text-sm font-semibold uppercase tracking-wide text-amber-700">Golden rule</div>
+        <Badge className="rounded-full bg-amber-600 text-white">keep this true</Badge>
+      </div>
+      <div className="mt-3 rounded-2xl border border-amber-200 bg-white px-3 py-2.5 shadow-sm">
+        <div className="text-xs font-semibold uppercase tracking-wide text-amber-700">Plain-English rule</div>
+        <p className="mt-1 text-sm leading-5 text-slate-700">{item.invariant}</p>
+      </div>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <div className="rounded-2xl border border-amber-200 bg-white px-3 py-2 text-xs leading-4 text-slate-700 shadow-sm">
+          <span className="font-semibold">Checkpoint:</span> ask, “is this still true after my last step?”
+        </div>
+        <div className="rounded-2xl border border-amber-200 bg-white px-3 py-2 text-xs leading-4 text-slate-700 shadow-sm">
+          <span className="font-semibold">If it breaks:</span> the algorithm usually needs a fix in logic or state.
+        </div>
+      </div>
     </Box>
   );
 }
@@ -2027,11 +2392,14 @@ function SmellBox({ item }) {
   return (
     <Box className="rounded-3xl border-cyan-200 bg-cyan-50">
       <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-cyan-700">Problem smells like</div>
-      <div className="flex flex-wrap gap-2">
+      <ul className="space-y-2 text-sm text-slate-700">
         {item.smells.map((smell) => (
-          <Badge key={smell} className="rounded-full bg-cyan-600">{smell}</Badge>
+          <li key={smell} className="flex items-start gap-2">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-600" />
+            <span>{smell}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </Box>
   );
 }
@@ -2041,9 +2409,12 @@ function CompareBox({ item }) {
   return (
     <Box className="rounded-3xl border-rose-200 bg-rose-50">
       <div className="text-sm font-semibold uppercase tracking-wide text-rose-700">Why this, not that?</div>
-      <p className="mt-2 text-sm text-slate-700">
-        Reach for <span className="font-semibold">{item.compare.better}</span> instead of <span className="font-semibold">{item.compare.insteadOf}</span> when {item.compare.why}
-      </p>
+      <div className="mt-3">
+        <TwoColumnTable
+          headers={["Reach for this", "Because"]}
+          rows={[{ left: `${item.compare.better} instead of ${item.compare.insteadOf}`, right: item.compare.why }]}
+        />
+      </div>
     </Box>
   );
 }
@@ -2054,9 +2425,19 @@ function BeforeAfterBox({ item }) {
     <Box className="rounded-3xl border-violet-200 bg-violet-50">
       <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-violet-700">Before vs after complexity</div>
       <div className="space-y-3 text-sm text-slate-700">
-        <div><span className="font-semibold">Before:</span> {item.beforeAfter.before}</div>
-        <div><span className="font-semibold">After:</span> {item.beforeAfter.after}</div>
-        <div><span className="font-semibold">Big shift:</span> {item.beforeAfter.complexity}</div>
+        <TwoColumnTable
+          headers={["Before", "After"]}
+          rows={[
+            {
+              left: item.beforeAfter.before,
+              right: item.beforeAfter.after,
+            },
+            {
+              left: "Big shift",
+              right: item.beforeAfter.complexity,
+            },
+          ]}
+        />
       </div>
     </Box>
   );
@@ -2100,18 +2481,43 @@ function GuidedLearnBox({ item }) {
 function ArrayDemo() {
   const base = [3, 7, 2];
   const [items, setItems] = useState(base);
+  const [scanIndex, setScanIndex] = useState(0);
+
+  useEffect(() => {
+    setScanIndex((index) => (items.length ? Math.min(index, items.length - 1) : 0));
+  }, [items.length]);
+
+  const reset = () => {
+    setItems(base);
+    setScanIndex(0);
+  };
+
+  const scan = () => {
+    if (!items.length) return;
+    setScanIndex((index) => (index + 1) % items.length);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
-        <Button size="sm" onClick={() => setItems((v) => [...v, Math.floor(Math.random() * 9) + 1])}>append</Button>
-        <Button size="sm" variant="secondary" onClick={() => setItems((v) => (v.length ? v.slice(0, -1) : v))}>pop</Button>
-        <Button size="sm" variant="outline" onClick={() => setItems(base)}>reset</Button>
+        <Button size="sm" onClick={() => { setItems((v) => [...v, Math.floor(Math.random() * 9) + 1]); setScanIndex(0); }}>append</Button>
+        <Button size="sm" variant="secondary" onClick={() => { setItems((v) => (v.length ? v.slice(0, -1) : v)); setScanIndex(0); }}>pop</Button>
+        <Button size="sm" variant="outline" onClick={scan} disabled={!items.length}>scan</Button>
+        <Button size="sm" variant="outline" onClick={reset}>reset</Button>
       </div>
+      <div className="text-sm text-slate-600">Linear scan cost: every touched element briefly flashes red while the work is being paid for.</div>
       <div className="flex flex-wrap gap-2">
         {items.map((n, i) => (
           <div key={`${n}-${i}`} className="flex w-16 flex-col items-center gap-1">
             <div className="text-xs text-slate-500">{i}</div>
-            <motion.div layout className="grid h-14 w-14 place-items-center rounded-xl border-2 border-blue-300 bg-blue-50 font-bold text-blue-700">{n}</motion.div>
+            <motion.div
+              layout
+              animate={i === scanIndex ? { scale: [1, 1.06, 1] } : { scale: 1 }}
+              transition={{ duration: 0.35 }}
+              className={`grid h-14 w-14 place-items-center rounded-xl border-2 font-bold ${i === scanIndex ? "animate-pulse border-red-400 bg-red-50 text-red-700 shadow" : "border-blue-300 bg-blue-50 text-blue-700"}`}
+            >
+              {n}
+            </motion.div>
           </div>
         ))}
       </div>
@@ -2148,15 +2554,35 @@ function DynamicArrayDemo() {
 function StringDemo() {
   const base = "hello";
   const [text, setText] = useState(base);
+  const [scanIndex, setScanIndex] = useState(0);
+
+  useEffect(() => {
+    setScanIndex((index) => (text.length ? Math.min(index, text.length - 1) : 0));
+  }, [text.length]);
+
+  const scan = () => {
+    if (!text.length) return;
+    setScanIndex((index) => (index + 1) % text.length);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
-        <Input value={text} onChange={(e) => setText(e.target.value)} className="max-w-sm" />
-        <Button size="sm" variant="outline" onClick={() => setText(base)}>reset</Button>
+        <Input value={text} onChange={(e) => { setText(e.target.value); setScanIndex(0); }} className="max-w-sm" />
+        <Button size="sm" variant="secondary" onClick={scan} disabled={!text.length}>scan</Button>
+        <Button size="sm" variant="outline" onClick={() => { setText(base); setScanIndex(0); }}>reset</Button>
       </div>
+      <div className="text-sm text-slate-600">Text scan cost: the active character flashes red so you can feel the left-to-right labor.</div>
       <div className="flex flex-wrap gap-2">
         {text.split("").map((ch, i) => (
-          <div key={`${ch}-${i}`} className="grid h-14 w-14 place-items-center rounded-xl border-2 border-sky-300 bg-sky-50 font-bold text-sky-700">{ch}</div>
+          <motion.div
+            key={`${ch}-${i}`}
+            animate={i === scanIndex ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+            transition={{ duration: 0.35 }}
+            className={`grid h-14 w-14 place-items-center rounded-xl border-2 font-bold ${i === scanIndex ? "animate-pulse border-red-400 bg-red-50 text-red-700 shadow" : "border-sky-300 bg-sky-50 text-sky-700"}`}
+          >
+            {ch}
+          </motion.div>
         ))}
       </div>
     </div>
@@ -2312,9 +2738,9 @@ function GridMatrixDemo() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-3">
         <div className="text-sm text-slate-600">row</div>
-        <input type="range" min="0" max="2" value={row} onChange={(e) => setRow(Number(e.target.value))} />
+        <input type="range" aria-label="Grid row" className="w-48 accent-slate-900" min="0" max="2" value={row} onChange={(e) => setRow(Number(e.target.value))} />
         <div className="text-sm text-slate-600">col</div>
-        <input type="range" min="0" max="2" value={col} onChange={(e) => setCol(Number(e.target.value))} />
+        <input type="range" aria-label="Grid column" className="w-48 accent-slate-900" min="0" max="2" value={col} onChange={(e) => setCol(Number(e.target.value))} />
       </div>
       <div className="flex gap-2">
         <Button size="sm" onClick={bump}>increment selected cell</Button>
@@ -2477,26 +2903,57 @@ function UnionFindDemo() {
 function TwoPointersDemo() {
   const base = "racecar";
   const [text, setText] = useState(base);
+  const [step, setStep] = useState(0);
   const chars = text.split("");
-  const left = 0;
-  const right = chars.length - 1;
+  const maxStep = Math.max(0, Math.floor((chars.length - 1) / 2));
+  const currentStep = Math.min(step, maxStep);
+  const left = chars.length ? currentStep : 0;
+  const right = chars.length ? chars.length - 1 - currentStep : 0;
+  const leftChar = chars[left];
+  const rightChar = chars[right];
+  const matching = chars.length === 0 ? true : leftChar === rightChar;
   const isPal = text === chars.slice().reverse().join("");
+  const status = chars.length === 0
+    ? "Type a string to begin."
+    : matching
+      ? left === right
+        ? "The pointers have met in the middle."
+        : "The current ends match, so step inward."
+      : "The current ends do not match.";
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
-        <Input value={text} onChange={(e) => setText(e.target.value)} className="max-w-sm" />
-        <Button size="sm" variant="outline" onClick={() => setText(base)}>reset</Button>
+        <Input value={text} onChange={(e) => { setText(e.target.value); setStep(0); }} className="max-w-sm" />
+        <Button size="sm" onClick={() => setStep((s) => Math.min(s + 1, maxStep))} disabled={chars.length === 0 || step >= maxStep || !matching}>step inward</Button>
+        <Button size="sm" variant="outline" onClick={() => { setText(base); setStep(0); }}>reset</Button>
       </div>
       <div className="flex flex-wrap gap-2">
-        {chars.map((ch, i) => (
-          <div key={i} className="flex w-14 flex-col items-center gap-1">
-            <div className="text-xs text-slate-500">{i}</div>
-            <div className={`grid h-14 w-14 place-items-center rounded-xl border-2 font-bold ${i === left || i === right ? "border-blue-500 bg-blue-50 text-blue-700" : "border-slate-200 bg-white text-slate-600"}`}>{ch}</div>
-            <div className="text-xs text-blue-500">{i === left ? "L" : i === right ? "R" : ""}</div>
-          </div>
-        ))}
+        {chars.map((ch, i) => {
+          const isLeft = i === left;
+          const isRight = i === right;
+          const overlap = isLeft && isRight;
+          const tone = overlap
+            ? "border-indigo-600 bg-indigo-100 text-indigo-900"
+            : isLeft || isRight
+              ? matching
+                ? "border-green-500 bg-green-50 text-green-700"
+                : "border-rose-500 bg-rose-50 text-rose-700"
+              : "border-slate-200 bg-white text-slate-600";
+
+          return (
+            <div key={i} className="flex w-14 flex-col items-center gap-1">
+              <div className="text-xs text-slate-500">{i}</div>
+              <div className={`grid h-14 w-14 place-items-center rounded-xl border-2 font-bold ${tone}`}>{ch}</div>
+              <div className="text-xs text-blue-500">{overlap ? "L/R" : isLeft ? "L" : isRight ? "R" : ""}</div>
+            </div>
+          );
+        })}
       </div>
-      <div className="text-sm text-slate-600">Palindrome? <span className={`font-bold ${isPal ? "text-green-600" : "text-rose-600"}`}>{isPal ? "yes" : "no"}</span></div>
+      <div className="space-y-1 text-sm text-slate-600">
+        <div>Step {chars.length ? currentStep + 1 : 0} / {chars.length ? maxStep + 1 : 0}</div>
+        <div>{status}</div>
+        <div>Palindrome? <span className={`font-bold ${isPal ? "text-green-600" : "text-rose-600"}`}>{isPal ? "yes" : "no"}</span></div>
+      </div>
     </div>
   );
 }
@@ -2540,7 +2997,7 @@ function SlidingWindowDemo() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-3">
         <div className="text-sm text-slate-600">window size</div>
-        <input type="range" min="2" max="5" value={k} onChange={(e) => setK(Number(e.target.value))} />
+        <input type="range" aria-label="Window size" className="w-48 accent-slate-900" min="2" max="5" value={k} onChange={(e) => setK(Number(e.target.value))} />
         <div className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">{k}</div>
         <Button size="sm" variant="outline" onClick={() => setK(3)}>reset</Button>
       </div>
@@ -2561,19 +3018,67 @@ function SlidingWindowDemo() {
 function BinarySearchDemo() {
   const nums = [1, 3, 5, 7, 9, 11, 13];
   const [target, setTarget] = useState(7);
-  const mid = Math.floor((0 + nums.length - 1) / 2);
+  const [stepIndex, setStepIndex] = useState(0);
+
+  useEffect(() => {
+    setStepIndex(0);
+  }, [target]);
+
+  const targetValue = Number.isNaN(target) ? 0 : target;
+  const searchSteps = useMemo(() => {
+    const steps = [];
+    let lo = 0;
+    let hi = nums.length - 1;
+
+    while (lo <= hi) {
+      const mid = Math.floor((lo + hi) / 2);
+      const value = nums[mid];
+      const found = value === targetValue;
+      steps.push({
+        lo,
+        hi,
+        mid,
+        value,
+        found,
+        message: found
+          ? `Found ${targetValue} at index ${mid}.`
+          : value < targetValue
+            ? `${value} is too small, so keep the right half.`
+            : `${value} is too large, so keep the left half.`,
+      });
+
+      if (found) return steps;
+      if (value < targetValue) {
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+
+    steps.push({ lo, hi, mid: null, value: null, found: false, exhausted: true, message: `${targetValue} is not in the array.` });
+    return steps;
+  }, [targetValue]);
+
+  const currentStep = searchSteps[Math.min(stepIndex, searchSteps.length - 1)];
+  const canAdvance = stepIndex < searchSteps.length - 1;
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
         <Input type="number" value={target} onChange={(e) => setTarget(Number(e.target.value))} className="max-w-35" />
-        <Button size="sm" variant="outline" onClick={() => setTarget(7)}>reset</Button>
+        <Button size="sm" onClick={() => setStepIndex((s) => Math.min(s + 1, searchSteps.length - 1))} disabled={!canAdvance}>next step</Button>
+        <Button size="sm" variant="outline" onClick={() => setStepIndex(0)}>reset</Button>
+      </div>
+      <div className="rounded-2xl border border-violet-200 bg-violet-50 p-3 text-sm text-violet-900">
+        <div className="font-semibold">Step {Math.min(stepIndex + 1, searchSteps.length)} / {searchSteps.length}</div>
+        <div className="mt-1">{currentStep.message}</div>
       </div>
       <div className="flex flex-wrap gap-2">
         {nums.map((n, i) => (
           <div key={n} className="flex w-16 flex-col items-center gap-1">
             <div className="text-xs text-slate-500">{i}</div>
-            <div className={`grid h-14 w-14 place-items-center rounded-xl border-2 font-bold ${i === mid ? "border-violet-500 bg-violet-50 text-violet-700" : n === target ? "border-green-500 bg-green-50 text-green-700" : "border-slate-200 bg-white text-slate-600"}`}>{n}</div>
-            <div className="text-xs text-violet-500">{i === mid ? "mid" : n === target ? "target" : ""}</div>
+            <div className={`grid h-14 w-14 place-items-center rounded-xl border-2 font-bold ${i === currentStep.mid ? "border-violet-500 bg-violet-50 text-violet-700" : n === targetValue ? "border-green-500 bg-green-50 text-green-700" : currentStep.mid === null ? "border-slate-200 bg-white text-slate-600" : i < currentStep.lo || i > currentStep.hi ? "border-slate-200 bg-slate-50 text-slate-300 opacity-50" : "border-slate-200 bg-white text-slate-600"}`}>{n}</div>
+            <div className="text-xs text-violet-500">{i === currentStep.mid ? "mid" : n === targetValue ? "target" : ""}</div>
           </div>
         ))}
       </div>
@@ -2583,17 +3088,18 @@ function BinarySearchDemo() {
 
 function DfsDemo() {
   const order = ["A", "B", "D", "E", "C", "F"];
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
+  const nextLabel = step === 0 ? "start DFS" : "step deeper";
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
-        <Button size="sm" onClick={() => setStep((s) => Math.min(s + 1, order.length))}>step deeper</Button>
-        <Button size="sm" variant="outline" onClick={() => setStep(1)}>reset</Button>
+        <Button size="sm" onClick={() => setStep((s) => Math.min(s + 1, order.length))}>{nextLabel}</Button>
+        <Button size="sm" variant="outline" onClick={() => setStep(0)}>reset</Button>
       </div>
       <div className="flex flex-wrap gap-2">
         {order.map((n, i) => <div key={n} className={`grid h-12 w-12 place-items-center rounded-full border-2 font-bold ${i < step ? "border-orange-500 bg-orange-50 text-orange-700" : "border-slate-200 bg-white text-slate-400"}`}>{n}</div>)}
       </div>
-      <div className="text-sm text-slate-600">DFS order: <span className="font-semibold text-orange-700">{order.slice(0, step).join(" → ")}</span></div>
+      <div className="text-sm text-slate-600">DFS order: <span className="font-semibold text-orange-700">{order.slice(0, step).join(" → ") || "none yet"}</span></div>
     </div>
   );
 }
@@ -2620,22 +3126,26 @@ function BfsDemo() {
 
 function BacktrackingDemo() {
   const nums = [1, 2, 3];
-  const [path, setPath] = useState([1]);
+  const [path, setPath] = useState([]);
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
         {nums.map((n) => <Button key={n} size="sm" variant="outline" onClick={() => setPath((p) => [...p, n])}>choose {n}</Button>)}
         <Button size="sm" variant="secondary" onClick={() => setPath((p) => p.slice(0, -1))}>undo</Button>
-        <Button size="sm" variant="outline" onClick={() => setPath([1])}>reset</Button>
+        <Button size="sm" variant="outline" onClick={() => setPath([])}>reset</Button>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {path.map((n, i) => (
-          <React.Fragment key={i}>
-            <div className="grid h-12 w-12 place-items-center rounded-full border-2 border-rose-400 bg-rose-50 font-bold text-rose-700">{n}</div>
-            {i < path.length - 1 && <span className="mt-2 text-lg font-bold text-rose-400">→</span>}
-          </React.Fragment>
-        ))}
-      </div>
+      {path.length ? (
+        <div className="flex flex-wrap gap-2">
+          {path.map((n, i) => (
+            <React.Fragment key={i}>
+              <div className="grid h-12 w-12 place-items-center rounded-full border-2 border-rose-400 bg-rose-50 font-bold text-rose-700">{n}</div>
+              {i < path.length - 1 && <span className="mt-2 text-lg font-bold text-rose-400">→</span>}
+            </React.Fragment>
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-dashed border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">No choices made yet. Pick a number to start the branch.</div>
+      )}
     </div>
   );
 }
@@ -2648,7 +3158,7 @@ function DpDemo() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-3">
         <div className="text-sm text-slate-600">n</div>
-        <input type="range" min="2" max="10" value={n} onChange={(e) => setN(Number(e.target.value))} />
+        <input type="range" aria-label="DP size" className="w-48 accent-slate-900" min="2" max="10" value={n} onChange={(e) => setN(Number(e.target.value))} />
         <div className="rounded-full bg-indigo-100 px-3 py-1 text-sm font-semibold text-indigo-700">{n}</div>
         <Button size="sm" variant="outline" onClick={() => setN(7)}>reset</Button>
       </div>
@@ -2684,21 +3194,48 @@ function TopologicalSortDemo() {
 function GreedyDemo() {
   const base = [[1, 3], [2, 4], [4, 6], [6, 8]];
   const [intervals, setIntervals] = useState(base);
+  const rankedIntervals = useMemo(
+    () => intervals.map((interval, index) => ({ interval, index })).sort((a, b) => a.interval[1] - b.interval[1] || a.interval[0] - b.interval[0]),
+    [intervals],
+  );
+  const selectedIndices = useMemo(() => {
+    const picked = new Set();
+    let end = -Infinity;
+
+    rankedIntervals.forEach(({ interval, index }) => {
+      const [start, finish] = interval;
+      if (start >= end) {
+        picked.add(index);
+        end = finish;
+      }
+    });
+
+    return picked;
+  }, [rankedIntervals]);
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
-        <Button size="sm" onClick={() => setIntervals((items) => [...items, [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 3) + 7]].sort((a, b) => a[0] - b[0]))}>add interval</Button>
+        <Button size="sm" onClick={() => setIntervals((items) => [...items, [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 3) + 7]])}>add interval</Button>
         <Button size="sm" variant="outline" onClick={() => setIntervals(base)}>reset</Button>
       </div>
+      <div className="rounded-2xl border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-800">
+        Greedy selects {selectedIndices.size} non-overlapping intervals after sorting by finish time.
+      </div>
       <div className="space-y-2">
-        {intervals.map(([start, end], i) => (
-          <div key={i} className="flex items-center gap-3">
-            <div className="w-12 text-sm text-slate-500">#{i + 1}</div>
-            <div className="relative h-4 flex-1 rounded-full bg-slate-100">
-              <div className={`absolute top-0 h-4 rounded-full ${i % 2 === 0 ? "bg-green-400" : "bg-slate-300"}`} style={{ left: `${start * 10}%`, width: `${Math.max((end - start) * 10, 8)}%` }} />
+        {rankedIntervals.map(({ interval: [start, end], index }, i) => {
+          const selected = selectedIndices.has(index);
+
+          return (
+            <div key={`${start}-${end}-${index}`} className={`flex items-center gap-3 rounded-2xl border p-3 ${selected ? "border-green-400 bg-green-50" : "border-slate-200 bg-white"}`}>
+              <div className="w-24 text-sm font-semibold text-slate-600">#{i + 1} {selected ? "✓ take" : "skip"}</div>
+              <div className="relative h-4 flex-1 rounded-full bg-slate-100">
+                <div className={`absolute top-0 h-4 rounded-full ${selected ? "bg-green-400" : "bg-slate-300"}`} style={{ left: `${start * 10}%`, width: `${Math.max((end - start) * 10, 8)}%` }} />
+              </div>
+              <div className="w-16 text-right text-sm font-semibold text-slate-700">{start}-{end}</div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -2726,7 +3263,7 @@ function PrefixSumDemo() {
 
 function MonotonicDemo() {
   const nums = [2, 1, 4, 3, 5];
-  const [index, setIndex] = useState(2);
+  const [index, setIndex] = useState(0);
   const stack = [];
   for (let i = 0; i < index; i++) {
     while (stack.length && stack[stack.length - 1] < nums[i]) stack.pop();
@@ -2737,9 +3274,13 @@ function MonotonicDemo() {
       <div className="text-sm text-slate-600">Source stream: <span className="font-semibold text-amber-700">{nums.join(", ")}</span></div>
       <div className="flex gap-2">
         <Button size="sm" onClick={() => setIndex((v) => Math.min(v + 1, nums.length))}>next item</Button>
-        <Button size="sm" variant="outline" onClick={() => setIndex(2)}>reset</Button>
+        <Button size="sm" variant="outline" onClick={() => setIndex(0)}>reset</Button>
       </div>
-      <div className="flex min-h-30 items-end gap-2">{stack.map((n, i) => <div key={i} className="grid h-14 w-14 place-items-center rounded-xl border-2 border-amber-300 bg-amber-50 font-bold text-amber-700">{n}</div>)}</div>
+      {stack.length ? (
+        <div className="flex min-h-30 items-end gap-2">{stack.map((n, i) => <div key={i} className="grid h-14 w-14 place-items-center rounded-xl border-2 border-amber-300 bg-amber-50 font-bold text-amber-700">{n}</div>)}</div>
+      ) : (
+        <div className="rounded-2xl border border-dashed border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">Stack is empty — press Next item to begin.</div>
+      )}
     </div>
   );
 }
@@ -2820,8 +3361,21 @@ export default function CodingToolboxPopupBook() {
     });
   }, [mode, query, sortMode]);
 
+  const visibleSections = useMemo(
+    () =>
+      typeOrder
+        .map((type) => ({
+          type,
+          meta: typeMeta[type],
+          items: visibleItems.filter((item) => item.type === type),
+        }))
+        .filter((section) => section.items.length > 0),
+    [visibleItems],
+  );
+
   const openItem = visibleItems.find((x) => x.id === openId) || visibleItems[0] || allItems[0];
   const showInteractiveDemo = openItem.type !== "foundation";
+  const showBigO = openItem.type !== "foundation";
 
   useEffect(() => {
     if (openItem && openItem.id !== openId) setOpenId(openItem.id);
@@ -2847,7 +3401,7 @@ export default function CodingToolboxPopupBook() {
                     <Box className="rounded-3xl bg-white/80 p-4 shadow-sm">
                       <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Start here</div>
                       <div className="mt-2 text-sm font-semibold text-slate-800">Pick one tool</div>
-                      <p className="mt-1 text-sm leading-6 text-slate-600">Use the left sidebar to choose one structure or pattern at a time.</p>
+                      <p className="mt-1 text-sm leading-6 text-slate-600">Use the grouped sidebar to choose one foundation, structure, or pattern at a time.</p>
                     </Box>
                     <Box className="rounded-3xl bg-white/80 p-4 shadow-sm">
                       <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Best mode</div>
@@ -2905,12 +3459,21 @@ export default function CodingToolboxPopupBook() {
               <CardContent className="space-y-4 flex min-h-0 flex-1 flex-col overflow-hidden">
                 <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search tools, patterns, uses..." />
                 <div className="space-y-3">
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="space-y-2">
                     <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Filter</div>
-                    <Button size="sm" variant={mode === "all" ? "default" : "outline"} onClick={() => setMode("all")}>All</Button>
-                    <Button size="sm" variant={mode === "foundation" ? "default" : "outline"} onClick={() => setMode("foundation")}>Foundations</Button>
-                    <Button size="sm" variant={mode === "structure" ? "default" : "outline"} onClick={() => setMode("structure")}>Structures</Button>
-                    <Button size="sm" variant={mode === "pattern" ? "default" : "outline"} onClick={() => setMode("pattern")}>Patterns</Button>
+                    <div className="relative">
+                      <select
+                        value={mode}
+                        onChange={(e) => setMode(e.target.value)}
+                        className="w-full appearance-none rounded-lg border border-slate-200 bg-white px-3 py-2 pr-10 text-sm font-medium text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                      >
+                        <option value="all">All</option>
+                        <option value="foundation">Foundations</option>
+                        <option value="structure">Structures</option>
+                        <option value="pattern">Patterns</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">▾</div>
+                    </div>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Sort</div>
@@ -2923,21 +3486,55 @@ export default function CodingToolboxPopupBook() {
                     <Button size="sm" variant={viewMode === "reference" ? "default" : "outline"} onClick={() => setViewMode("reference")}>Reference</Button>
                   </div>
                 </div>
-                <div className="min-h-0 flex-1 space-y-2 overflow-y-auto overflow-x-hidden pr-1">
-                  {visibleItems.map((item) => {
-                    const Icon = item.icon;
+                <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overflow-x-hidden pr-1">
+                  {visibleSections.map((section) => {
+                    const sectionMeta = section.meta || typeMeta.foundation;
+                    const SectionIcon = sectionMeta.icon || Layers;
+
                     return (
-                      <button key={item.id} onClick={() => setOpenId(item.id)} className={`w-full rounded-2xl border p-3 text-left transition hover:shadow ${openItem?.id === item.id ? item.color : "border-slate-200 bg-white text-slate-700"}`}>
-                        <div className="flex items-center gap-3">
-                          <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/80 shadow-sm"><Icon className="h-5 w-5" /></div>
-                          <div>
-                            <div className="font-bold">{item.name}</div>
-                            <div className="text-xs opacity-75">{item.type}</div>
-                          </div>
+                      <div key={section.type} className="space-y-2">
+                        <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                          <Badge className={`rounded-full border px-2 py-0.5 text-[10px] ${sectionMeta.pill || "border-slate-200 bg-white text-slate-700"}`}>{sectionMeta.short}</Badge>
+                          <SectionIcon className="h-4 w-4" />
+                          <span>{sectionMeta.label}</span>
+                          <span className="ml-auto text-[10px] tracking-[0.22em] text-slate-400">{section.items.length}</span>
                         </div>
-                      </button>
+
+                        <div className="space-y-2">
+                          {section.items.map((item) => {
+                            const Icon = item.icon;
+                            const itemMeta = typeMeta[item.type] || typeMeta.structure;
+
+                            return (
+                              <button
+                                key={item.id}
+                                onClick={() => setOpenId(item.id)}
+                                className={`w-full rounded-2xl border p-3 text-left transition hover:shadow ${openItem?.id === item.id ? item.color : "border-slate-200 bg-white text-slate-700"}`}
+                              >
+                                <div className="flex items-start gap-3">
+                                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/80 shadow-sm">
+                                    <Icon className="h-5 w-5" />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                      <div className="font-bold">{item.name}</div>
+                                      <Badge className={`rounded-full border px-2 py-0.5 text-[10px] ${itemMeta.pill || "border-slate-200 bg-white text-slate-700"}`}>
+                                        {itemMeta.short}
+                                      </Badge>
+                                    </div>
+                                    <div className="text-xs opacity-75">{itemMeta.label}</div>
+                                  </div>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
                     );
                   })}
+                </div>
+                <div className="shrink-0 border-t border-slate-200 pt-4">
+                  <QuickRefDrawer />
                 </div>
               </CardContent>
             </Card>
@@ -2946,10 +3543,10 @@ export default function CodingToolboxPopupBook() {
               {openItem && (
                 <motion.div key={openItem.id} initial={{ opacity: 0, rotateX: -8, y: 16 }} animate={{ opacity: 1, rotateX: 0, y: 0 }} exit={{ opacity: 0, rotateX: 6, y: -8 }} transition={{ duration: 0.25 }} style={{ perspective: 1200 }} className="min-w-0">
                   <Card className="rounded-4xl border-slate-200 bg-white/95 shadow-2xl">
-                    <CardContent className="p-5 md:p-8">
-                      <div className="space-y-6 min-w-0">
-                        <div className="rounded-4xl border border-slate-200 bg-linear-to-br from-white via-slate-50 to-slate-100 p-5 md:p-6 lg:p-7">
-                          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <CardContent className="p-5 md:p-7">
+                      <div className="space-y-4 min-w-0">
+                        <div className="rounded-4xl border border-slate-200 bg-linear-to-br from-white via-slate-50 to-slate-100 p-4 md:p-5 lg:p-6">
+                          <div className="grid gap-4 xl:grid-cols-[minmax(0,1.25fr)_minmax(300px,0.8fr)] xl:items-start">
                             <div className="space-y-4">
                               <div className={`inline-flex items-center gap-3 rounded-3xl border px-4 py-3 ${openItem.color}`}>
                                 <openItem.icon className="h-6 w-6" />
@@ -2959,26 +3556,24 @@ export default function CodingToolboxPopupBook() {
                                 </div>
                               </div>
 
-                              <div className="max-w-3xl space-y-3">
-                                <div>
+                              <InvariantBox item={openItem} />
+
+                              <div className="grid gap-4 lg:grid-cols-2">
+                                <Box className="rounded-3xl border-slate-200 bg-white/75">
                                   <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Mental model</div>
-                                  <p className="mt-2 text-lg font-semibold text-slate-800 md:text-xl">{openItem.mentalModel}</p>
-                                </div>
-                                <div>
+                                  <p className="mt-2 text-base font-semibold leading-6 text-slate-800 md:text-lg">{openItem.mentalModel}</p>
+                                </Box>
+                                <Box className="rounded-3xl border-slate-200 bg-white/75">
                                   <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Use it when</div>
                                   <div className="mt-3">
                                     <SmallBadgeList items={openItem.useWhen} />
                                   </div>
-                                </div>
+                                </Box>
                               </div>
                             </div>
 
-                            <div className="grid gap-3 sm:grid-cols-2 lg:w-[320px] lg:grid-cols-1">
-                              <Box className="rounded-3xl border-indigo-200 bg-indigo-50">
-                                <div className="text-sm font-semibold uppercase tracking-wide text-indigo-500">Why this matters in real systems</div>
-                                <p className="mt-2 text-sm leading-6 text-slate-700">{openItem.realSystems}</p>
-                              </Box>
-                              <InvariantBox item={openItem} />
+                            <div className="w-full">
+                              <IntentBox item={openItem} />
                             </div>
                           </div>
                         </div>
@@ -2994,34 +3589,34 @@ export default function CodingToolboxPopupBook() {
                                     <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Interactive demo</div>
                                     <div className="text-lg font-bold text-slate-900">See the state change</div>
                                   </div>
-                                  <Badge className="rounded-full bg-slate-800">interactive demo</Badge>
+                                  <Badge>interactive demo</Badge>
                                 </div>
                                 <DemoRenderer item={openItem} />
                               </Box>
                             )}
 
-                            <Box className="rounded-4xl bg-linear-to-br from-white via-slate-50 to-indigo-50">
-                              <div className="mb-4 flex items-center justify-between gap-3">
-                                <div>
-                                  <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Python sketch + Big O feel</div>
-                                  <div className="text-lg font-bold text-slate-900">One representation, two linked controls</div>
+                            {showBigO && (
+                              <Box className="rounded-4xl bg-linear-to-br from-white via-slate-50 to-indigo-50">
+                                <div className="mb-4 flex items-center justify-between gap-3">
+                                  <div>
+                                    <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">Python sketch + Big O feel</div>
+                                    <div className="text-lg font-bold text-slate-900">One representation, two linked controls</div>
+                                  </div>
+                                  <Badge className="rounded-full bg-indigo-600">combined panel</Badge>
                                 </div>
-                                <Badge className="rounded-full bg-indigo-600">combined panel</Badge>
-                              </div>
-                              <div className="grid gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] items-start">
-                                <div className="space-y-6">
-                                  <BigOTabs item={openItem} activeBigO={activeBigO} setActiveBigO={setActiveBigO} />
-                                  <BigOLegend />
+                                <div className="grid gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] items-start">
+                                  <div className="space-y-6">
+                                    <BigOTabs item={openItem} activeBigO={activeBigO} setActiveBigO={setActiveBigO} />
+                                  </div>
+                                  <Box className="rounded-3xl border-slate-200 bg-white/90">
+                                    <SketchTabs item={openItem} activeBigO={activeBigO} />
+                                  </Box>
                                 </div>
-                                <Box className="rounded-3xl border-slate-200 bg-white/90">
-                                  <SketchTabs item={openItem} activeBigO={activeBigO} />
-                                </Box>
-                              </div>
-                            </Box>
+                              </Box>
+                            )}
                           </div>
 
                           <div className="space-y-6 2xl:sticky 2xl:top-6 2xl:self-start min-w-0">
-                            <IntentBox item={openItem} />
                             <RelatedLinksBox item={openItem} onOpenItem={setOpenId} />
                             <PointerThinkingBox item={openItem} />
                             <SmellBox item={openItem} />

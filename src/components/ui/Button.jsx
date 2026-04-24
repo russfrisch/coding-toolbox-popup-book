@@ -13,7 +13,7 @@ export function Button({
   const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-50'
 
   const variants = {
-    default: 'bg-slate-900 text-white hover:bg-slate-800',
+    default: 'bg-indigo-600 text-white hover:bg-indigo-500',
     outline: 'border border-slate-200 bg-transparent text-slate-700 hover:bg-slate-50',
     secondary: 'bg-slate-100 text-slate-700 hover:bg-slate-200',
     ghost: 'bg-transparent text-slate-700 hover:bg-slate-100',
