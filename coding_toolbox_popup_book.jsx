@@ -3320,7 +3320,6 @@ function DemoRenderer({ item }) {
 
 export default function CodingToolboxPopupBook() {
   const [mode, setMode] = useState("all");
-  const [viewMode, setViewMode] = useState("guided");
   const [sortMode, setSortMode] = useState("usage");
   const [activeBigO, setActiveBigO] = useState("typical");
   const [query, setQuery] = useState("");
@@ -3405,8 +3404,8 @@ export default function CodingToolboxPopupBook() {
                     </Box>
                     <Box className="rounded-3xl bg-white/80 p-4 shadow-sm">
                       <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Best mode</div>
-                      <div className="mt-2 text-sm font-semibold text-slate-800">Guided first</div>
-                      <p className="mt-1 text-sm leading-6 text-slate-600">Start in Guided view, then switch to Reference once it clicks.</p>
+                      <div className="mt-2 text-sm font-semibold text-slate-800">Guided by default</div>
+                      <p className="mt-1 text-sm leading-6 text-slate-600">The page walks through each item step by step so the pattern is easier to absorb.</p>
                     </Box>
                     <Box className="rounded-3xl bg-white/80 p-4 shadow-sm">
                       <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Best order</div>
@@ -3433,7 +3432,7 @@ export default function CodingToolboxPopupBook() {
                     <div className="text-sm font-semibold uppercase tracking-wide text-indigo-600">How to use this page</div>
                     <div className="mt-3 space-y-2 text-sm text-slate-700">
                       <div className="rounded-2xl border border-indigo-200 bg-white px-3 py-2">1. Pick a structure or pattern on the left.</div>
-                      <div className="rounded-2xl border border-indigo-200 bg-white px-3 py-2">2. Start with <span className="font-semibold">Guided</span> view if the topic feels fuzzy.</div>
+                      <div className="rounded-2xl border border-indigo-200 bg-white px-3 py-2">2. Follow the guided steps to build intuition before diving into the demo.</div>
                       <div className="rounded-2xl border border-indigo-200 bg-white px-3 py-2">3. Use the demo to watch the state change.</div>
                       <div className="rounded-2xl border border-indigo-200 bg-white px-3 py-2">4. Match the Python sketch to the visual behavior.</div>
                     </div>
@@ -3479,11 +3478,6 @@ export default function CodingToolboxPopupBook() {
                     <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Sort</div>
                     <Button size="sm" variant={sortMode === "usage" ? "default" : "outline"} onClick={() => setSortMode("usage")}>Most used</Button>
                     <Button size="sm" variant={sortMode === "alphabetical" ? "default" : "outline"} onClick={() => setSortMode("alphabetical")}>Alphabetical</Button>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">View</div>
-                    <Button size="sm" variant={viewMode === "guided" ? "default" : "outline"} onClick={() => setViewMode("guided")}>Guided</Button>
-                    <Button size="sm" variant={viewMode === "reference" ? "default" : "outline"} onClick={() => setViewMode("reference")}>Reference</Button>
                   </div>
                 </div>
                 <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overflow-x-hidden pr-1">
@@ -3576,7 +3570,7 @@ export default function CodingToolboxPopupBook() {
 
                         <div className="grid gap-6 2xl:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.8fr)] items-start">
                           <div className="space-y-6 min-w-0">
-                            {viewMode === "guided" && <GuidedLearnBox item={openItem} />}
+                            <GuidedLearnBox item={openItem} />
 
                             {showInteractiveDemo && (
                               <Box className="rounded-4xl bg-linear-to-br from-white via-slate-50 to-indigo-50">
